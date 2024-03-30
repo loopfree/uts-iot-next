@@ -30,6 +30,8 @@ export async function POST(request: NextRequest) {
       throw new Error("Insufficient Balance");
     }
 
+    await db.query("BEGIN");
+
     await db.query(
       "UPDATE user_table SET balance = balance - $2 WHERE username = $1",
       ["13520131", price]
@@ -39,6 +41,8 @@ export async function POST(request: NextRequest) {
       "UPDATE user_table SET balance = balance + $2 WHERE username = $1",
       ["merchant", price]
     );
+
+    await db.query("COMMIT");
 
     const currentDate = new Date();
 
