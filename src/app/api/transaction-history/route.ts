@@ -24,6 +24,9 @@ export async function GET(request: NextRequest) {
     },
     {
       status: 200,
+      headers: {
+        "Cache-Control": "no-store",
+      },
     }
   );
 }
